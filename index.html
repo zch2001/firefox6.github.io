@@ -10,9 +10,158 @@
     <h1> 实验1
         视频播放
         <embed src="https://st.music.163.com/mlog/mlog.html?id=a102XqD0VSv48qv&type=2&userid=1509167116&songId=null&startTime=null"; autostart="true" loop="true" width="400" height="350" >
-        
-        <h1>
+        代码#include <IRremote.h>
+int RECV_PIN=10;
+int ledPin=3;
+                                //LED -digital 3
+boolean ledState=LOW;           //ledState用来存储LED的状态
+IRrecv irrecv(RECV_PIN);
+decode_results results;
 
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  irrecv.enableIRIn();
+  pinMode(ledPin,OUTPUT);         //设置LED为输出状态
+  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if(irrecv.decode(&results)){
+  Serial.println(results.value,HEX);
+  if(results.value==0xFD00FF){       //如果接受到的是电源键的信号，LED翻转状态
+  
+       ledState=!ledState;
+      digitalWrite(ledPin,ledState);
+   }
+  irrecv.resume();
+  }
+  else{
+    
+    
+  }
+}
+
+        <h1>
+<h2> 实验二 视频播放            
+<embed src="https://st.music.163.com/mlog/mlog.html?id=a1MjP6qBVf3lG5K&type=2&userid=1509167116&songId=null&startTime=null"; autostart="true" loop="true" width="400" height="350" >
+    代码//歌曲
+
+int Eulogyofjoytune[]=                 //根据简谱列出各频率
+{
+  350,350,393,441,
+  441,393,350,330,
+  294,294,330,350,
+  350,330,330,
+  350,350,393,441,
+  441,393,350,330,
+  294,294,330,350,
+  330,294,294,
+  330,330,350,294,
+  330,350,393,350,294,
+  330,350,393,350,330,
+  294,330,221,-1,
+  350,350,393,441,
+  441,393,350,393,330,
+  294,294,330,350,
+  330,294,294
+};
+int lstune[]={
+  262,262,393,393,
+  441,441,393,
+  350,350,330,330,
+  294,294,262,
+  393,393,350,350,
+  330,330,294,
+  393,393,350,350,
+  330,330,294,
+  262,262,393,393,
+  441,441,393,
+  350,350,330,330,
+  294,294,262
+};
+
+//节拍
+float Eulogyofjoybeat[]=                   //根据简谱列出各节拍
+{
+  1,1,1,1,
+  1,1,1,1,
+  1,1,1,1,
+  1+0.5,0.5,1+1,
+  1,1,1,1,
+  1,1,1,1,
+  1,1,1,1,
+  1+0.5,0.5,1+1,
+  1,1,1,1,
+  1,0.5,0.5,1,1,
+  1,0.5,0.5,1,1,
+  1,1,1,1,
+  1,1,1,1,
+  1,1,1,0.5,0.5,
+  1,1,1,1,
+  1+0.5,0.5,1+1,
+};
+float lsbeat[]={
+  1,1,1,1,
+  1,1,1+1,
+  1,1,1,1,
+  1,1,1+1,
+  1,1,1,1,
+  1,1,1+1,
+  1,1,1,1,
+  1,1,1+1,
+  1,1,1,1,
+  1,1,1+1,
+  1,1,1,1,
+  1,1,1+1
+};
+//设置接口
+int buzzerpin=05;
+int ledpin=02;
+
+void setup() {
+  pinMode(buzzerpin,OUTPUT);
+  pinMode(ledpin,OUTPUT);
+  Serial.begin(9600);
+}
+//播放歌曲的函数
+void start(int len,int buzzpin,int lepin,int *tune,float *beat){
+  for(int x=0;x<len;x++)
+  {
+    tone(buzzpin,tune[x]);
+    digitalWrite(lepin, HIGH); 
+    delay(500*beat[x]);//与前一代码不同之处，这里将原来的500分为了400和100，分别控制led的开与关，对于蜂鸣器来说依然是500.
+    digitalWrite(lepin, LOW);
+    noTone(buzzpin);   
+    delay(100);
+  }
+}
+void loop() {
+  String select;
+  while(Serial.available()>0){
+    select+=char(Serial.read());
+    delay(2);
+  }
+  if(select!=""){
+    int len;
+    if(select=="Ode to Jo"){
+      Serial.println("Next, we will play the Ode to Jo");
+      len=sizeof(Eulogyofjoytune)/sizeof(Eulogyofjoytune[0]);
+      start(len,buzzerpin,ledpin,Eulogyofjoytune,Eulogyofjoybeat);
+    }else if(select=="little star"){
+      Serial.println("Next, we will play the little star");
+      len=sizeof(lstune)/sizeof(lstune[0]);
+      start(len,buzzerpin,ledpin,lstune,lsbeat);
+    }else{
+      Serial.println("Sorry, there is no such song in the music library.");
+    }
+  }
+  
+}
+<h2>
 </head>
 
 <body>   
