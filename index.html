@@ -10,21 +10,16 @@
     <h1> 实验1
         视频播放
         <embed src="https://st.music.163.com/mlog/mlog.html?id=a102XqD0VSv48qv&type=2&userid=1509167116&songId=null&startTime=null"; autostart="true" loop="true" width="400" height="350" >
-       
-
-        <h1>
-<h2> 实验二 视频播放            
+        实验二 视频播放            
 <embed src="https://st.music.163.com/mlog/mlog.html?id=a1MjP6qBVf3lG5K&type=2&userid=1509167116&songId=null&startTime=null"; autostart="true" loop="true" width="400" height="350" >
-    
-<h2>
- <h3> 实验三 视频播放
+ 实验三 视频播放
      <embed src="https://st.music.163.com/mlog/mlog.html?id=a1XBjw6D0bwpY53&type=2&userid=1509167116&songId=null&startTime=null"; autostart="true" loop="true" width="400" height="350" >
-     <h3>
+     <h1>
 </head>
 
 <body>   
-<h1> <font size="2">实验1代码
-    #include <IRremote.h><br/>
+<h1> <font size="5">实验1代码</font><p>
+<font size="2"> #include <IRremote.h><br/>
 int RECV_PIN=10;<br/>
 int ledPin=3;
                                 //LED -digital 3<br/>
@@ -58,10 +53,11 @@ void loop() {<br/>
     
   }<br/>
 }<br/></font><p>
-    <h1>
-       <h2>
-  <font size="2">实验2代码//歌曲<br/>
 
+    
+    
+<font size="5">实验2代码</font><p>
+<font size="2">//歌曲<br/>
 int Eulogyofjoytune[]=                 //根据简谱列出各频率<br/>
 {<br/>
   350,350,393<br/>
@@ -173,17 +169,16 @@ void loop() {<br/>
   }<br/>
   
       }<br/></font><p>
-      <h2>
-      <h3>
-<font size="2">实验三代码<br/>
-           #include <Wire.h><br/>
+
+
+    
+ <font size="5">实验三代码</font><p><br/>
+<font size="2">#include <Wire.h><br/>
 #include <LiquidCrystal_I2C.h> <br/>         
 #include <dht11.h><br/>
 LiquidCrystal_I2C lcd(0x20,16,2);//设置LCD的地址，2行，每行16字符<br/>
 dht11 DHT;<br/>
 #define DHT11_PIN 4<br/>
-
-
 void setup() {<br/>
   // put your setup code here, to run once:<br/>
   lcd.init();            // LCD初始化设置<br/>
@@ -227,7 +222,10 @@ void loop() {<br/>
  lcd.print(DHT.temperature);<br/> 
   delay(1000); <br/>
 }<br/></font><p>
-   
+
+    
+  <font size="5">实验四代码过长</font><p><br/>
+    <h1>
 </body>
 
 </html>
