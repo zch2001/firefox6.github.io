@@ -57,119 +57,119 @@ void loop() {
 }
     <h1>
        <h2>
-  <font style="font-size:50px">代码//歌曲
+  <font size="2">代码//歌曲<br/>
 
-int Eulogyofjoytune[]=                 //根据简谱列出各频率
-{
-  350,350,393,441,
-  441,393,350,330,
-  294,294,330,350,
-  350,330,330,
-  350,350,393,441,
-  441,393,350,330,
-  294,294,330,350,
-  330,294,294,
-  330,330,350,294,
-  330,350,393,350,294,
-  330,350,393,350,330,
-  294,330,221,-1,
-  350,350,393,441,
-  441,393,350,393,330,
-  294,294,330,350,
-  330,294,294
-};
-int lstune[]={
-  262,262,393,393,
-  441,441,393,
-  350,350,330,330,
-  294,294,262,
-  393,393,350,350,
-  330,330,294,
-  393,393,350,350,
-  330,330,294,
-  262,262,393,393,
-  441,441,393,
-  350,350,330,330,
-  294,294,262
-};
+int Eulogyofjoytune[]=                 //根据简谱列出各频率<br/>
+{<br/>
+  350,350,393<br/>
+  441,39<br/>
+  294,294,330,350,<br/>
+  350,330,330,<br/>
+  350,350,393,441,<br/>
+  441,393,350,330,<br/>
+  294,294,330,350,<br/>
+  330,294,294,<br/>
+  330,330,350,294,<br/>
+  330,350,393,350,294,<br/>
+  330,350,393,350,330,<br/>
+  294,330,221,-1,<br/>
+  350,350,393,441,<br/>
+  441,393,350,393,330,<br/>
+  294,294,330,350,<br/>
+  330,294,294<br/>
+};<br/>
+int lstune[]={<br/>
+  262,262,393,393,<br/>
+  441,441,393,<br/>
+  350,350,330,330,<br/>
+  294,294,262,<br/>
+  393,393,350,350,<br/>
+  330,330,294,<br/>
+  393,393,350,350,<br/>
+  330,330,294,<br/>
+  262,262,393,393,<br/>
+  441,441,393,<br/>
+  350,350,330,330,<br/>
+  294,294,262<br/>
+};<br/>
 
-//节拍
-float Eulogyofjoybeat[]=                   //根据简谱列出各节拍
-{
-  1,1,1,1,
-  1,1,1,1,
-  1,1,1,1,
-  1+0.5,0.5,1+1,
-  1,1,1,1,
-  1,1,1,1,
-  1,1,1,1,
-  1+0.5,0.5,1+1,
-  1,1,1,1,
-  1,0.5,0.5,1,1,
-  1,0.5,0.5,1,1,
-  1,1,1,1,
-  1,1,1,1,
-  1,1,1,0.5,0.5,
-  1,1,1,1,
-  1+0.5,0.5,1+1,
-};
-float lsbeat[]={
-  1,1,1,1,
-  1,1,1+1,
-  1,1,1,1,
-  1,1,1+1,
-  1,1,1,1,
-  1,1,1+1,
-  1,1,1,1,
-  1,1,1+1,
-  1,1,1,1,
-  1,1,1+1,
-  1,1,1,1,
-  1,1,1+1
-};
-//设置接口
-int buzzerpin=05;
-int ledpin=02;
-
-void setup() {
-  pinMode(buzzerpin,OUTPUT);
-  pinMode(ledpin,OUTPUT);
-  Serial.begin(9600);
-}
-//播放歌曲的函数
-void start(int len,int buzzpin,int lepin,int *tune,float *beat){
-  for(int x=0;x<len;x++)
-  {
-    tone(buzzpin,tune[x]);
-    digitalWrite(lepin, HIGH); 
-    delay(500*beat[x]);//与前一代码不同之处，这里将原来的500分为了400和100，分别控制led的开与关，对于蜂鸣器来说依然是500.
-    digitalWrite(lepin, LOW);
-    noTone(buzzpin);   
-    delay(100);
-  }
-}
-void loop() {
-  String select;
-  while(Serial.available()>0){
-    select+=char(Serial.read());
-    delay(2);
-  }
-  if(select!=""){
-    int len;
-    if(select=="Ode to Jo"){
-      Serial.println("Next, we will play the Ode to Jo");
-      len=sizeof(Eulogyofjoytune)/sizeof(Eulogyofjoytune[0]);
-      start(len,buzzerpin,ledpin,Eulogyofjoytune,Eulogyofjoybeat);
-    }else if(select=="little star"){
-      Serial.println("Next, we will play the little star");
-      len=sizeof(lstune)/sizeof(lstune[0]);
-      start(len,buzzerpin,ledpin,lstune,lsbeat);
+//节拍<br/>
+float Eulogyofjoybeat[]=                   //根据简谱列出各节拍<br/>
+{<br/>
+  1,1,1,1,<br/>
+  1,1,1,1,<br/>
+  1,1,1,1,<br/>
+  1+0.5,0.5,1+1,<br/>
+  1,1,1,1,<br/>
+  1,1,1,1,<br/>
+  1,1,1,1,<br/>
+  1+0.5,0.5,1+1,<br/>
+  1,1,1,1,<br/>
+  1,0.5,0.5,1,1,<br/>
+  1,0.5,0.5,1,1,<br/>
+  1,1,1,1,<br/>
+  1,1,1,1,<br/>
+  1,1,1,0.5,0.5,<br/>
+  1,1,1,1,<br/>
+  1+0.5,0.5,1+1,<br/>
+};<br/>
+float lsbeat[]={<br/>
+  1,1,1,1,<br/>
+  1,1,1+1,<br/>
+  1,1,1,1,<br/>
+  1,1,1+1,<br/>
+  1,1,1,1,<br/>
+  1,1,1+1,<br/>
+  1,1,1,1,<br/>
+  1,1,1+1,<br/>
+  1,1,1,1,<br/>
+  1,1,1+1,<br/>
+  1,1,1,1,<br/>
+  1,1,1+1<br/>
+};<br/>
+//设置接口<br/>
+int buzzerpin=05;<br/>
+int ledpin=02;<br/>
+<br/>
+void setup() {<br/>
+  pinMode(buzzerpin,OUTPUT);<br/>
+  pinMode(ledpin,OUTPUT);<br/>
+  Serial.begin(9600);<br/>
+}<br/>
+//播放歌曲的函数<br/>
+void start(int len,int buzzpin,int lepin,int *tune,float *beat){<br/>
+  for(int x=0;x<len;x++)<br/>
+  {<br/>
+    tone(buzzpin,tune[x]);<br/>
+    digitalWrite(lepin, HIGH); <br/>
+    delay(500*beat[x]);//与前一代码不同之处，这里将原来的500分为了400和100，分别控制led的开与关，对于蜂鸣器来说依然是500.<br/>
+    digitalWrite(lepin, LOW);<br/>
+    noTone(buzzpin);   <br/>
+    delay(100);<br/>
+  }<br/>
+}<br/>
+void loop() {<br/>
+  String select;<br/>
+  while(Serial.available()>0){<br/>
+    select+=char(Serial.read());<br/>
+    delay(2);<br/>
+  }<br/>
+  if(select!=""){<br/>
+    int len;<br/>
+    if(select=="Ode to Jo"){<br/>
+      Serial.println("Next, we will play the Ode to Jo");<br/>
+      len=sizeof(Eulogyofjoytune)/sizeof(Eulogyofjoytune[0]);<br/>
+      start(len,buzzerpin,ledpin,Eulogyofjoytune,Eulogyofjoybeat);<br/>
+    }else if(select=="little star"){<br/>
+      Serial.println("Next, we will play the little star");<br/>
+      len=sizeof(lstune)/sizeof(lstune[0]);<br/>
+      start(len,buzzerpin,ledpin,lstune,lsbeat);<br/>
     }else{
-      Serial.println("Sorry, there is no such song in the music library.");
-    }
-  }
+      Serial.println("Sorry, there is no such song in the music library.");<br/>
+    }<br/>
+  }<br/>
   
-      }</font><p>
+      }<br/></font><p>
       <h2>
 </body>
 
