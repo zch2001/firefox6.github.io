@@ -17,47 +17,50 @@
 <embed src="https://st.music.163.com/mlog/mlog.html?id=a1MjP6qBVf3lG5K&type=2&userid=1509167116&songId=null&startTime=null"; autostart="true" loop="true" width="400" height="350" >
     
 <h2>
+ <h3> 实验三 视频播放
+     <embed src="https://st.music.163.com/mlog/mlog.html?id=a1XBjw6D0bwpY53&type=2&userid=1509167116&songId=null&startTime=null"; autostart="true" loop="true" width="400" height="350" >
+     <h3>
 </head>
 
 <body>   
-<h1>实验1代码
-    #include <IRremote.h>
-int RECV_PIN=10;
+<h1> <font size="2">实验1代码
+    #include <IRremote.h><br/>
+int RECV_PIN=10;<br/>
 int ledPin=3;
-                                //LED -digital 3
-boolean ledState=LOW;           //ledState用来存储LED的状态
-IRrecv irrecv(RECV_PIN);
-decode_results results;
+                                //LED -digital 3<br/>
+boolean ledState=LOW;           //ledState用来存储LED的状态<br/>
+IRrecv irrecv(RECV_PIN);<br/>
+decode_results results;<br/>
 
 
 
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  irrecv.enableIRIn();
-  pinMode(ledPin,OUTPUT);         //设置LED为输出状态
+void setup() {<br/>
+  // put your setup code here, to run once:<br/>
+  Serial.begin(9600);<br/>
+  irrecv.enableIRIn();<br/>
+  pinMode(ledPin,OUTPUT);         //设置LED为输出状态<br/>
   
-}
+}<br/>
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  if(irrecv.decode(&results)){
-  Serial.println(results.value,HEX);
-  if(results.value==0xFD00FF){       //如果接受到的是电源键的信号，LED翻转状态
+void loop() {<br/>
+  // put your main code here, to run repeatedly:<br/>
+  if(irrecv.decode(&results)){<br/>
+  Serial.println(results.value,HEX);<br/>
+  if(results.value==0xFD00FF){       //如果接受到的是电源键的信号，LED翻转状态<br/>
   
-       ledState=!ledState;
-      digitalWrite(ledPin,ledState);
-   }
-  irrecv.resume();
-  }
-  else{
+       ledState=!ledState;<br/>
+      digitalWrite(ledPin,ledState);<br/>
+   }<br/>
+  irrecv.resume();<br/>
+  }<br/>
+  else{<br/>
     
     
-  }
-}
+  }<br/>
+}<br/></font><p>
     <h1>
        <h2>
-  <font size="2">代码//歌曲<br/>
+  <font size="2">实验2代码//歌曲<br/>
 
 int Eulogyofjoytune[]=                 //根据简谱列出各频率<br/>
 {<br/>
@@ -171,6 +174,60 @@ void loop() {<br/>
   
       }<br/></font><p>
       <h2>
+      <h3>
+<font size="2">实验三代码<br/>
+           #include <Wire.h><br/>
+#include <LiquidCrystal_I2C.h> <br/>         
+#include <dht11.h><br/>
+LiquidCrystal_I2C lcd(0x20,16,2);//设置LCD的地址，2行，每行16字符<br/>
+dht11 DHT;<br/>
+#define DHT11_PIN 4<br/>
+
+
+void setup() {<br/>
+  // put your setup code here, to run once:<br/>
+  lcd.init();            // LCD初始化设置<br/>
+  lcd.backlight();      // 打开 LCD背光<br/>
+  Serial.begin(9600);  // 设置串口波特率9600<br/>
+  //串口输出”Type, status, Humidity(%), Temperature(C)”<br/>
+  lcd.setCursor(0,0);<br/>
+  lcd.print("Humidity(%):");    //LCD屏显示” Humidity(%):”<br/>
+  lcd.setCursor(0,1);     //光标移到第2行，第一个字符<br/>
+  lcd.print("Temp(C):");  //LCD屏显示”Temp(C):”<br/>
+}<br/>
+
+void loop() {<br/>
+  // put your main code here, to run repeatedly:<br/>
+  int chk;  //chk用于存储DHT11传感器的数据<br/>
+  Serial.print("DHT11, \t"); <br/>
+//读取 DHT11传感器的数据<br/>
+  chk = DHT.read(DHT11_PIN); <br/>  
+  switch (chk){ <br/>
+    case DHTLIB_OK: <br/>
+        Serial.print("DHT11, \t"); <br/>
+         break; <br/>
+    case DHTLIB_ERROR_CHECKSUM:<br/> 
+        Serial.print("CHECKSUM");  <br/>
+        break; <br/>
+    case DHTLIB_ERROR_TIMEOUT:<br/>
+           Serial.print("TIMEOUT");  <br/>
+           break; <br/>
+    default:<br/>
+            Serial.print("WRONG");  <br/>
+            break; <br/>
+  }<br/>
+  //串口显示温湿度值<br/>
+  Serial.print(DHT.humidity,1);   <br/>
+  Serial.print(",\t"); <br/>
+  Serial.println(DHT.temperature,1);<br/> 
+//LCD显示温湿度值<br/>
+ lcd.setCursor(12,0); <br/>   
+  lcd.print(DHT.humidity);<br/> 
+   lcd.setCursor(8,1);    <br/>
+ lcd.print(DHT.temperature);<br/> 
+  delay(1000); <br/>
+}<br/></font><p>
+   
 </body>
 
 </html>
